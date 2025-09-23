@@ -30,7 +30,9 @@
     "env": {
       "browser": true
     },
-    "ignorePatterns": ["examples/**/*.js"],
+    "ignorePatterns": [
+      "examples/**/*.js"
+    ],
     "globals": {
       "L": "readonly"
     },
@@ -41,10 +43,15 @@
   },
   "stylelint": {
     "extends": "stylelint-config-standard",
-    "ignoreFiles": ["examples/**/*.css"],
+    "ignoreFiles": [
+      "examples/**/*.css"
+    ],
     "rules": {
       "declaration-empty-line-before": null,
       "declaration-block-no-redundant-longhand-properties": null
     }
+  },
+  "dependencies": {
+    "leaflet-providers": "^2.0.0"
   }
 }
