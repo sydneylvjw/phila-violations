@@ -1,6 +1,6 @@
 import { SlideDeck } from './slidedeck.js';
 
-const map = L.map('map', {scrollWheelZoom: false}).setView([39.9526, -75.1652], 100);
+const map = L.map('map', {scrollWheelZoom: false}).setView([39.9526, -75.1652], 12);
 
 
 // ## The Base Tile Layer
