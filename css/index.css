@@ -45,6 +45,37 @@ body {
 
 .slide:first-child {
   margin-top: 0;
+  background-color: rgb(255 69 0 / 75%);
+  border: none;
+  color: white;
+}
+
+.slide:nth-child(2) {
+  margin-top: 0;
+  color: white;
+  background-color: rgb(128 128 128 / 90%);
+  border: none;
+}
+
+.slide:nth-child(3) {
+  margin-top: 0;
+  color: white;
+  background-color: rgb(128 128 128 / 90%);
+  border: none;
+}
+
+.slide:nth-child(4) {
+  margin-top: 0;
+  color: white;
+  background-color: rgb(128 128 128 / 90%);
+  border: none;
+}
+
+.slide:nth-child(5) {
+  margin-top: 0;
+  color: white;
+  background-color: rgb(128 128 128 / 90%);
+  border: none;
 }
 
 .slide:last-child {
@@ -82,3 +113,4 @@ body {
 .slide-nav-select {
   min-width: 0;
 }
+

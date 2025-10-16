@@ -115,10 +115,11 @@ class SlideDeck {
     };
 
     this.map.addEventListener('moveend', handleFlyEnd);
+    const flyOptions = options && options.zoom ? { maxZoom: options.zoom } : undefined;
     if (collection.bbox) {
-      this.map.flyToBounds(boundsFromBbox(collection.bbox));
+      this.map.flyToBounds(boundsFromBbox(collection.bbox), flyOptions);
     } else {
-      this.map.flyToBounds(layer.getBounds());
+      this.map.flyToBounds(layer.getBounds(), flyOptions);
     }
   }
 
@@ -126,9 +127,10 @@ class SlideDeck {
    * Show the slide with ID matched by currentSlideIndex. If currentSlideIndex is
    * null, then show the first slide.
    */
-  syncMapToCurrentSlide() {
+  async syncMapToCurrentSlide() {
     const slide = this.slides[this.currentSlideIndex];
-    this.syncMapToSlide(slide);
+    await this.syncMapToSlide(slide);
+    // Removed setZoom, zoom is handled in flyToBounds
   }
 
   /**
