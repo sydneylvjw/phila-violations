@@ -130,21 +130,28 @@ class SlideDeck {
   async syncMapToCurrentSlide() {
     const slide = this.slides[this.currentSlideIndex];
     await this.syncMapToSlide(slide);
-    // Removed setZoom, zoom is handled in flyToBounds
-  }
+  } 
+  //This is the end of function that syncs the map to the current slide. this basically ensures that when you scroll to a new slide, the map updates to match that slide. 
+  // The slide file is fetched from the data folder based on the slide's ID. 
+  // The slide file is styled based on the options in the slideOptions object passed to the SlideDeck constructor located in line 76 of index.js.
 
   /**
    * Increment the currentSlideIndex and show the corresponding slide. If the
    * current slide is the final slide, then the next is the first.
    */
+
+
   goNextSlide() {
     this.currentSlideIndex++;
 
     if (this.currentSlideIndex === this.slides.length) {
       this.currentSlideIndex = 0;
-    }
+    }  //this function goNextSlide checks the index of the current slide to see if it is the last slide. 
+    // If it is not the last slide, it increments the index by 1 to show the next slide.
 
-    this.syncMapToCurrentSlide();
+    this.syncMapToCurrentSlide(); //If it is the last slide, the function syncs the map to the first slide by setting the currentSlideIndex to 0.
+    //this.syncMapToCurrentSlide() then updates the map to match the current slide. 
+    // this. in js is a reference to the current object instance, in this case, the SlideDeck object. We know it is rerferencing the SlideDeck object because the function is defined within the SlideDeck class in line 3 of slidedeck.js.
   }
 
   /**
