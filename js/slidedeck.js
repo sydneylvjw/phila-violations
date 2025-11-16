@@ -104,7 +104,7 @@ class SlideDeck {
      * Create a temporary event handler that will show tooltips on the map
      * features, after the map is done "flying" to contain the data layer.
      */
-    const handleFlyEnd = () => {
+    let handleFlyEnd = () => {
       if (slide.showpopups) {
         layer.eachLayer((l) => {
           l.bindTooltip(l.feature.properties.label, { permanent: true });

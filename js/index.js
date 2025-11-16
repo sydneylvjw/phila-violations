@@ -18,26 +18,8 @@ const stadiaAlidadeSmoothDark = L.tileLayer(
 });
 stadiaAlidadeSmoothDark.addTo(map);
 
-fetch('../data/Political_Wards.geojson')
-    .then((response) => response.json())
-    .then((PoliticalWards) => {
-      const filters = [
-        {
-          property: 'ward_num',
-          value: [
-            '3', '6', '11', '12', '14', '16', '18', '19', '20', '22', '24', '27', '28', '29', '32', '36', '37', '43', '44', '46', '47', '49', '51', '59', '60', '1', '2', '39A', '39B', '5', '25', '31', '45',
-          ],
-        },
-      ];
-      const filteredWards = PoliticalWards.features.filter((feature) => {
-        const filter = filters[0];
-        return filter.value.includes(feature.properties[filter.property]);
-      });
-      const filteredWardsGeoJSON = {
-        ...PoliticalWards,
-        features: filteredWards,
-      };
 
+ {
       // ## Interface Elements
       const container = document.querySelector('.slide-section');
       const slides = document.querySelectorAll('.slide');
@@ -51,6 +33,7 @@ fetch('../data/Political_Wards.geojson')
             fillOpacity: 1,
             weight: 2,
           }),
+          zoom: 12,
         },
         'second-slide': {
           style: (feature) => ({
@@ -59,15 +42,18 @@ fetch('../data/Political_Wards.geojson')
             fillOpacity: 1,
             weight: 2,
           }),
-          geojson: filteredWardsGeoJSON,
           zoom: 14,
         },
         'third-slide': {
           style: (feature) => ({
-            color: 'red',
-            fillColor: 'green',
-            fillOpacity: 0.5,
+            color: 'lightgray',
+            fillColor: 'darkred',
+            fillOpacity: 1,
+            weight: 2,
           }),
+          onEachFeature: (feature, layer) => {
+            layer.bindTooltip(feature.properties.label);
+          },
         },
         'fourth-slide': {
           style: (feature) => ({
@@ -75,6 +61,7 @@ fetch('../data/Political_Wards.geojson')
             fillColor: 'yellow',
             fillOpacity: 0.5,
           }),
+          zoom: 15
         },
       }; // here is where slideOptions object ends
 
@@ -86,4 +73,4 @@ fetch('../data/Political_Wards.geojson')
 
       deck.preloadFeatureCollections();
       deck.syncMapToCurrentSlide();
-    });
+    };
