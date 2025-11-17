@@ -8,6 +8,78 @@ const map = L.map('map', {
   13
 );
 
+// Lazy-load the violPerAddress layer on demand for slides 4 and 5.
+let violPerAddressLayer = null;
+let violPerAddressLoaded = false;
+async function ensureViolPerAddress() {
+  if (violPerAddressLoaded) return violPerAddressLayer;
+  const path = 'data/violPerAddress.geojson';
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const data = await res.json();
+
+  // keep raw data available if other code expects it
+  window.violAddressYear = data;
+  violPerAddressLayer = L.geoJSON(data);
+  violPerAddressLoaded = true;
+  return violPerAddressLayer;
+}
+
+// Lazy-load the violResolutionCode layer on demand for slides 4 and 5.
+let violResolutionCodeLayer = null;
+let violResolutionCodeLoaded = false;
+async function ensureViolResolutionCode() {
+  if (violResolutionCodeLoaded) return violResolutionCodeLayer;
+  const path = 'data/violResolutionCode.geojson';
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const data = await res.json();
+
+  // keep raw data available if other code expects it
+  window.violResolutionCodeLayer = data;
+  violResolutionCodeLayer = L.geoJSON(data);
+  violResolutionCodeLoaded = true;
+  return violResolutionCodeLayer;
+}
+
+// Lazy-load the violStatus layer on demand for slides 4 and 5.
+let violStatusLayer = null;
+let violStatusLoaded = false;
+async function ensureViolStatus() {
+  if (violStatusLoaded) return violStatusLayer;
+  const path = 'data/violStatus.geojson';
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const data = await res.json();
+
+  // keep raw data available if other code expects it
+  window.violStatusLayer = data;
+  violStatusLayer = L.geoJSON(data);
+  violStatusLoaded = true;
+  return violStatusLayer;
+}
+
+// Lazy-load the violTypeYear layer on demand for slides 4 and 5.
+let violTypeYearLayer = null;
+let violTypeYearLoaded = false;
+async function ensureViolTypeYear() {
+  if (violTypeYearLoaded) return violTypeYearLayer;
+  const path = 'data/violTypeYear.geojson';
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+  const data = await res.json();
+
+  // keep raw data available if other code expects it
+  window.violTypeYearLayer = data;
+  violTypeYearLayer = L.geoJSON(data);
+  violTypeYearLoaded = true;
+  return violTypeYearLayer;
+}
+
+// Track whether we've added the violPerAddress layer to the overlays control
+let violPerAddressAddedToControl = false;
+
+
 // ## The Base Tile Layer
 const stadiaAlidadeSmoothDark = L.tileLayer(
   'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
@@ -18,59 +90,116 @@ const stadiaAlidadeSmoothDark = L.tileLayer(
 });
 stadiaAlidadeSmoothDark.addTo(map);
 
+// Creating map layer group
+const overlayMaps = {
+  "Properties with the Most Violations Per Year": violPerAddressLayer,
+  "Violation Statuses": violStatusLayer,
+  "Violation Types": violTypeYearLayer,
+  "Violation Resolution Codes": violResolutionCodeLayer
+}
 
- {
-      // ## Interface Elements
-      const container = document.querySelector('.slide-section');
-      const slides = document.querySelectorAll('.slide');
-
-      // ## Creating the object slideOptions, the bundle of variables and functions, to pass to slidedeck.js
-      const slideOptions = {
-        'title-slide': {
-          style: (feature) => ({
-            color: 'lightgray',
-            fillColor: 'black',
-            fillOpacity: 1,
-            weight: 2,
-          }),
-          zoom: 12,
-        },
-        'second-slide': {
-          style: (feature) => ({
-            color: 'lightgray',
-            fillColor: 'black',
-            fillOpacity: 1,
-            weight: 2,
-          }),
-          zoom: 14,
-        },
-        'third-slide': {
-          style: (feature) => ({
-            color: 'lightgray',
-            fillColor: 'darkred',
-            fillOpacity: 1,
-            weight: 2,
-          }),
-          onEachFeature: (feature, layer) => {
-            layer.bindTooltip(feature.properties.label);
-          },
-        },
-        'fourth-slide': {
-          style: (feature) => ({
-            color: 'blue',
-            fillColor: 'yellow',
-            fillOpacity: 0.5,
-          }),
-          zoom: 15
-        },
-      }; // here is where slideOptions object ends
+// create control but add overlays later:
+const overlaysControl = L.control.layers(null, null).addTo(map);
 
 
-      // ## The SlideDeck object
-      const deck = new SlideDeck(container, slides, map, slideOptions);
+{
+  // ## Interface Elements (simplified)
+  const container = document.querySelector('.slide-section');
+  const slides = document.querySelectorAll('.slide');
 
-      document.addEventListener('scroll', () => deck.calcCurrentSlideIndex());
+  // Keep your existing slideOptions (only styles/handlers are relevant to SlideDeck)
+  const slideOptions = {
+      'title-slide': { style: (_feature) => ({ 
+        color: '#00ff5eff', 
+        fillColor: 'black', 
+        fillOpacity: 1, 
+        weight: 2, 
+      }), 
+      zoom: 12 
+    },
+      'second-slide': { style: (_feature) => ({ 
+        color: '#00ff5eff', 
+        fillColor: 'black', 
+        fillOpacity: 1, 
+        weight: 2, 
+      }), 
+      zoom: 14 
+    },
+      'third-slide': { style: (_feature) => ({ 
+        color: '#00ff5eff', 
+        fillColor: 'black', 
+        fillOpacity: 1, 
+        weight: 2, 
+      }), 
+    },
+      'fourth-slide': { 
+          pointToLayer: (_feature, latlng) => L.circleMarker(latlng, {
+          radius: 6,
+          fillColor: 'white',
+          color: 'lightgrey',
+          weight: 1,
+          opacity: 1,
+          fillOpacity: 1,
+      }),
+        style: (_feature) => ({ 
+          color: '#00ff5eff', 
+          fillColor: 'black', 
+          fillOpacity: 0.5, 
+          weight: 2, 
+      }),
+    },
+      'fifth-slide': { 
+        style: (_feature) => ({ 
+          color: '#00ff5eff', 
+          fillColor: 'black', 
+          fillOpacity: 0.5, 
+          weight: 2, 
+      }) 
+    },
+      'sixth-slide': { 
+        style: (_feature) => ({ 
+          color: '#00ff5eff', 
+          fillColor: 'black', 
+          fillOpacity: 0.5, 
+          weight: 2, 
+      }) 
+    },
+  };
 
-      deck.preloadFeatureCollections();
-      deck.syncMapToCurrentSlide();
-    };
+  // Create the SlideDeck and initialize
+  const deck = new SlideDeck(container, slides, map, slideOptions);
+  deck.preloadFeatureCollections();
+  deck.syncMapToCurrentSlide();
+
+  // Simple scroll handler: update current slide index and toggle overlay
+  document.addEventListener('scroll', () => {
+    deck.calcCurrentSlideIndex();
+    toggleViolPerAddress();
+  });
+
+  // Toggle the violPerAddress overlay for slides 4 and 5 (indices 3 and 4)
+  async function toggleViolPerAddress() {
+    const idx = deck.currentSlideIndex;
+    const shouldShow = idx === 3 || idx === 4;
+    if (shouldShow) {
+      try {
+        const layer = await ensureViolPerAddress();
+        if (!map.hasLayer(layer)) map.addLayer(layer);
+        if (!violPerAddressAddedToControl) {
+          overlaysControl.addOverlay(layer, 'Properties with the Most Violations Per Year');
+          violPerAddressAddedToControl = true;
+        }
+      } catch (err) {
+        console.error('Error loading violPerAddress layer:', err);
+      }
+    } else {
+      if (violPerAddressLoaded && map.hasLayer(violPerAddressLayer)) {
+        map.removeLayer(violPerAddressLayer);
+      }
+    }
+  }
+
+  // initial state
+  toggleViolPerAddress();
+
+}
