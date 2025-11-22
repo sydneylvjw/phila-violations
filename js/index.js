@@ -1,5 +1,6 @@
 import { SlideDeck } from './slidedeck.js';
 
+//building map layout
 const map = L.map('map', {
   scrollWheelZoom: false
 })
@@ -81,14 +82,13 @@ let violPerAddressAddedToControl = false;
 
 
 // ## The Base Tile Layer
-const stadiaAlidadeSmoothDark = L.tileLayer(
-  'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.{ext}', {
-  minZoom: 0,
-  maxZoom: 20,
-  attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  ext: 'png',
+const Stadia_StamenTonerLite = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'png'
 });
-stadiaAlidadeSmoothDark.addTo(map);
+Stadia_StamenTonerLite.addTo(map);
 
 // Creating map layer group
 const overlayMaps = {
@@ -109,25 +109,27 @@ const overlaysControl = L.control.layers(null, null).addTo(map);
 
   // Keep your existing slideOptions (only styles/handlers are relevant to SlideDeck)
   const slideOptions = {
-      'title-slide': { style: (_feature) => ({ 
-        color: '#00ff5eff', 
-        fillColor: 'black', 
+      'title-slide': { style: (_feature) => 
+        ({ 
+        color: 'black', 
+        fillColor: 'whitesmoke', 
         fillOpacity: 1, 
         weight: 2, 
       }), 
       zoom: 12 
     },
       'second-slide': { style: (_feature) => ({ 
-        color: '#00ff5eff', 
-        fillColor: 'black', 
+        // color: '#802525ff', //
+        color: 'black',
+        fillColor: 'whitesmoke', 
         fillOpacity: 1, 
         weight: 2, 
       }), 
       zoom: 14 
     },
       'third-slide': { style: (_feature) => ({ 
-        color: '#00ff5eff', 
-        fillColor: 'black', 
+        color: 'black',
+        fillColor: 'whitesmoke',
         fillOpacity: 1, 
         weight: 2, 
       }), 
@@ -135,35 +137,47 @@ const overlaysControl = L.control.layers(null, null).addTo(map);
       'fourth-slide': { 
           pointToLayer: (_feature, latlng) => L.circleMarker(latlng, {
           radius: 6,
-          fillColor: 'white',
+          fillColor: 'black',
           color: 'lightgrey',
           weight: 1,
           opacity: 1,
           fillOpacity: 1,
       }),
         style: (_feature) => ({ 
-          color: '#00ff5eff', 
-          fillColor: 'black', 
-          fillOpacity: 0.5, 
+        color: 'black',
+        fillColor: 'whitesmoke',
+        fillOpacity: 1, 
           weight: 2, 
       }),
     },
       'fifth-slide': { 
         style: (_feature) => ({ 
-          color: '#00ff5eff', 
-          fillColor: 'black', 
-          fillOpacity: 0.5, 
-          weight: 2, 
-      }) 
+        color: 'black',
+        fillColor: 'whitesmoke', 
+        fillOpacity: 1, 
+        weight: 2, 
+      }),
     },
       'sixth-slide': { 
         style: (_feature) => ({ 
-          color: '#00ff5eff', 
-          fillColor: 'black', 
-          fillOpacity: 0.5, 
-          weight: 2, 
-      }) 
+        color: 'black',
+        fillColor: 'whitesmoke',
+        fillOpacity: 1, 
+        weight: 2, 
+      }),
     },
+      'seventh-slide': {
+        style: (_feature) => ({ 
+          color: 'black',
+          fillColor: 'whitesmoke',
+          fillOpacity: 1, 
+          weight: 2, 
+      }),
+      zoom: 10,
+    },
+       'eighth-slide': {
+
+      }
   };
 
   // Create the SlideDeck and initialize
