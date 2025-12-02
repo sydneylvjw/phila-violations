@@ -113,7 +113,7 @@ h4 {
   font-size: 3em;
   background-color: whitesmoke;
   text-align: right;
-  line-height: 1.3;
+  line-height: 1.1;
   padding-right: 0.25em;
   padding-bottom: 0.25em;
 }
@@ -131,16 +131,16 @@ body {
 
 p {
   font-family: 'Roboto Condensed', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 300;
   line-height: 1;
   margin-top: 0;
 }
 
 mark {
-  background-color: darkolivegreen;
-  color: whitesmoke;
-  line-height: 1.4;
+  background-color: transparent;
+  color: black;
+  line-height: 1.1;
 }
 
 
@@ -151,12 +151,16 @@ mark {
   height: 100vh;
   z-index: 0;
   border: 0.5em solid whitesmoke;
+  /* keep the map on the right side */
+  width: 100%;
+  margin-right: auto;
 }
 
 
 .map {
   position: relative;
   height: 100%;
+  width: 100%;
   border: .5em solid whitesmoke;
 }
 
@@ -175,7 +179,7 @@ mark {
   box-shadow: -0.5rem 0 1rem whitesmoke 20%;
   border-radius: 0.2rem;
   pointer-events: initial;
-  width: 80%;
+  width: 40%;
   z-index: 100;
 }
 
@@ -190,43 +194,52 @@ mark {
   margin-top: 0; 
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
 }
 
 .slide:nth-child(3) {
   margin-top: 0;  
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
+
 }
 
 .slide:nth-child(4) {
   margin-top: 0;  
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
+
 }
 
 .slide:nth-child(5) {
   margin-top: 0;  
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
 }
 
 .slide:nth-child(6) {
   margin-top: 0;  
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
 }
 
 .slide:nth-child(7) {
   margin-top: 0;  
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
 }
 
 
 .slide:last-child {
-  margin-top: 0;  
+  margin-top: 0;
   text-align: justify;
   border: none;
+  background-color: darkkhaki;
 }
 
 .slide-controls {
@@ -260,4 +273,3 @@ mark {
 .slide-nav-select {
   min-width: 0;
 }
-

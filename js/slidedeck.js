@@ -115,7 +115,21 @@ class SlideDeck {
     };
 
     this.map.addEventListener('moveend', handleFlyEnd);
-    const flyOptions = options && options.zoom ? { maxZoom: options.zoom } : undefined;
+
+    // Modifying the flyOptions so that the map sits to the left of the viewport, and the slides don't overlap it
+    // Copilot says: 
+      // Build fly/fit options and bias the bounds to the left so the map's
+      // important content appears on the left side of the viewport when slides
+      // are rendered on top of the map. We compute the slide overlay width in
+      // pixels and add it as right padding (paddingBottomRight) to fitBounds.
+    const slideEl = document.querySelector('.slide');
+    const slideWidthPx = slideEl ? slideEl.offsetWidth : Math.round(window.innerWidth * 0.4);
+
+    const flyOptions = {};
+    if (options && options.zoom) flyOptions.maxZoom = options.zoom;
+    const paddingRight = Math.min(slideWidthPx + 24, Math.round(window.innerWidth * 0.75));
+    flyOptions.paddingBottomRight = [paddingRight, 0];
+
     if (collection.bbox) {
       this.map.flyToBounds(boundsFromBbox(collection.bbox), flyOptions);
     } else {
