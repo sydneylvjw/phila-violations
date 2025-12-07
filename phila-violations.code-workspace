@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../story-map-project-examples"
+		}
+	],
+	"settings": {
+		"r.bracketedPaste": true
+	}
+}

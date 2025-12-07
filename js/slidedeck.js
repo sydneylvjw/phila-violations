@@ -40,9 +40,12 @@ class SlideDeck {
       pointToLayer: (p, latlng) => L.marker(latlng),
       style: (feature) => feature.properties.style,
     };
-    const geoJsonLayer = L.geoJSON(data, options || defaultOptions)
-        .bindTooltip((l) => l.feature.properties.label)
-        .addTo(this.dataLayer);
+    const geoJsonLayer = L.geoJSON(data, options || defaultOptions);
+    geoJsonLayer.eachLayer((l) => {
+      const label = l.feature?.properties?.label;
+      if (label) l.bindTooltip(String(label));
+    });
+    geoJsonLayer.addTo(this.dataLayer);
 
     return geoJsonLayer;
   }
@@ -60,7 +63,6 @@ class SlideDeck {
     const data = await resp.json();
     return data;
   }
-
   /**
    * ### hideAllSlides
    *
@@ -85,6 +87,7 @@ class SlideDeck {
     const collection = await this.getSlideFeatureCollection(slide);
     const options = this.slideOptions[slide.id];
     const layer = this.updateDataLayer(collection, options);
+    
 
     /**
      * Create a bounds object from a GeoJSON bbox array.
@@ -127,10 +130,13 @@ class SlideDeck {
 
     const flyOptions = {};
     if (options && options.zoom) flyOptions.maxZoom = options.zoom;
-    const paddingRight = Math.min(slideWidthPx + 24, Math.round(window.innerWidth * 0.75));
-    flyOptions.paddingBottomRight = [paddingRight, 0];
+    const paddingRight = Math.min(slideWidthPx + 12, Math.round(window.innerWidth * 0.75));
+    flyOptions.paddingBottomRight = [0, 0];
 
-    if (collection.bbox) {
+    const hasCustomBounds = options && options.bounds;
+    if (hasCustomBounds) {
+      this.map.flyToBounds(L.latLngBounds(options.bounds), flyOptions);
+    } else if (collection.bbox) {
       this.map.flyToBounds(boundsFromBbox(collection.bbox), flyOptions);
     } else {
       this.map.flyToBounds(layer.getBounds(), flyOptions);
@@ -205,7 +211,7 @@ class SlideDeck {
     let i;
     for (i = 0; i < this.slides.length; i++) {
       const slidePos =
-        this.slides[i].offsetTop - scrollPos + windowHeight * 0.7;
+        this.slides[i].offsetTop - scrollPos + windowHeight * 0.01;
       if (slidePos >= 0) {
         break;
       }

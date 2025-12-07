@@ -15279,6 +15279,43 @@
 { "type": "Feature", "properties": { "objectid": 3425, "addressobjectid": "781975691", "parcel_id_num": "427694", "casenumber": "CF-2025-071399", "casecreateddate": "2025-07-17T14:17:27Z", "casecompleteddate": null, "caseresponsibility": "CSU INVESTIGATOR", "violationnumber": "VI-2025-051889", "violationdate": "2025-07-17T14:23:13Z", "violationcode": "PM15-108.1", "violationcodetitle": "UNSAFE STRUCTURE", "violationresolutiondate": null, "violationresolutioncode": null, "mostrecentinvestigation": "2025-07-17T14:25:34Z", "novinitialreinvestigationdate": "2025-10-16T04:00:00Z", "finalnovissuedate": null, "opa_account_num": "282230000", "address": "2524 N DOUGLAS ST", "unit_type": null, "unit_num": null, "zip": "19132-2901", "censustract": "016902", "opa_owner": "SMITH CARL E, ALICE LEE", "systemofrecord": null, "geocode_x": 2687036.6894260598, "geocode_y": 251571.20344391599, "council_district": "5", "posse_jobid": "895817731" }, "geometry": { "type": "Point", "coordinates": [ -75.185084, 39.995274 ] } },
 { "type": "Feature", "properties": { "objectid": 3426, "addressobjectid": "805672109", "parcel_id_num": "528954", "casenumber": "CF-2024-122306", "casecreateddate": "2024-11-22T14:33:32Z", "casecompleteddate": null, "caseresponsibility": "CSU INVESTIGATOR", "violationnumber": "VI-2024-094331", "violationdate": "2024-11-22T14:33:51Z", "violationcode": "PM15-108.1", "violationcodetitle": "UNSAFE STRUCTURE", "violationresolutiondate": null, "violationresolutioncode": null, "mostrecentinvestigation": "2025-09-18T16:18:43Z", "novinitialreinvestigationdate": "2025-02-20T00:00:00Z", "finalnovissuedate": "2025-02-20T15:12:16Z", "opa_account_num": "885900597", "address": "1751 S CHRISTOPHER COLUMBUS BLVD", "unit_type": null, "unit_num": null, "zip": "19148", "censustract": "980700", "opa_owner": "DRWC LAND CONSERVANCY", "systemofrecord": null, "geocode_x": 2700752.1470008297, "geocode_y": 226192.39360567101, "council_district": "1", "posse_jobid": "814338075" }, "geometry": { "type": "Point", "coordinates": [ -75.13883, 39.924533 ] } },
 { "type": "Feature", "properties": { "objectid": 3427, "addressobjectid": "889468019", "parcel_id_num": "231815", "casenumber": "CF-2025-045223", "casecreateddate": "2025-05-19T19:00:12Z", "casecompleteddate": null, "caseresponsibility": "CSU INVESTIGATOR", "violationnumber": "VI-2025-034037", "violationdate": "2025-05-19T19:04:08Z", "violationcode": "PM15-108.1", "violationcodetitle": "UNSAFE STRUCTURE", "violationresolutiondate": null, "violationresolutioncode": null, "mostrecentinvestigation": "2025-07-24T19:43:26Z", "novinitialreinvestigationdate": "2025-06-24T04:00:00Z", "finalnovissuedate": "2025-07-24T19:43:26Z", "opa_account_num": "061212105", "address": "413 N 41ST ST", "unit_type": null, "unit_num": null, "zip": "19104-2235", "censustract": "009200", "opa_owner": "PLUMMER ERIC", "systemofrecord": null, "geocode_x": 2681750.17569162, "geocode_y": 238777.178873884, "council_district": "3", "posse_jobid": "876329334" }, "geometry": { "type": "Point", "coordinates": [ -75.20526, 39.960587 ] } }
+,
+{
+  "type": "Feature",
+  "properties": {
+    "area": "west-phila",
+    "label": "West Philadelphia"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [[
+      [-75.245, 39.915],
+      [-75.245, 39.985],
+      [-75.205, 39.985],
+      [-75.205, 39.915],
+      [-75.245, 39.915]
+    ]]
+  }
+}
+,
+{
+  "type": "Feature",
+  "properties": {
+    "area": "north-phila",
+    "label": "North Philadelphia"
+  },
+      "geometry": {
+    "type": "Polygon",
+        "coordinates": [[
+         [-75.20, 39.975],
+         [-75.20, 40.02],
+         [-75.10, 40.02],
+         [-75.10, 39.975],
+         [-75.20, 39.975]
+        ]]
+  }
+}
+
 
     ]
 }
