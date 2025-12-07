@@ -3,7 +3,9 @@
 .cover {
   position: relative;
   background-color: whitesmoke;
-  border: 0.5em solid whitesmoke;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #cover-image {
@@ -18,7 +20,9 @@
   display: flex;
   align-items: stretch;
   background-color: whitesmoke;
-  border: 0.5em solid whitesmoke;
+  padding: 0.5em;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #title-container {
@@ -51,8 +55,10 @@
   display: flex;
   align-items: stretch;
   background-color: whitesmoke;
-  border: 0.5em solid whitesmoke;
-  height: 20vh;
+  padding: 0.5em;
+    height: 20vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #subtitle-1 {
@@ -63,7 +69,7 @@
   justify-content: space-between;
   text-align: left;
   width: 100%;
-  border: 0.5em solid whitesmoke;
+  padding: 0.5em;
 }
 
 #subtitle-2 {
@@ -74,7 +80,7 @@
   flex-wrap: wrap;
   text-align: right;
   width: 100%;
-  border: 0.5em solid whitesmoke;
+  padding: 0.5em;
 }
 
 /* Text styling */
@@ -127,6 +133,7 @@ body {
   box-sizing: border-box;
   height: 100vh;
   font-family: 'Condensed Roboto', sans-serif;
+  padding-top: 60vh;
 }
 
 p {
@@ -137,11 +144,6 @@ p {
   margin-top: 0;
 }
 
-mark {
-  background-color: transparent;
-  color: black;
-  line-height: 1.1;
-}
 
 
 /* Map Elements */
@@ -150,10 +152,8 @@ mark {
   top: 0;
   height: 100vh;
   z-index: 0;
-  border: 0.5em solid whitesmoke;
-  /* keep the map on the right side */
   width: 100%;
-  margin-right: auto;
+  margin: auto;
 }
 
 
@@ -161,8 +161,21 @@ mark {
   position: relative;
   height: 100%;
   width: 100%;
-  border: .5em solid whitesmoke;
 }
+
+/* Fade out map on fifth slide to image from urban institute */
+/* .map-container {
+  transition: opacity 1s ease-in-out, pointer-events 1s ease-in-out;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.map-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+} */
+
+
 
 
 /* Slide Elements */
@@ -173,13 +186,12 @@ mark {
 }
 
 .slide {
-
-  margin: 90vh 0 90vh auto;
+  margin: 90vh auto 90vh auto;
   padding: 1rem;
   box-shadow: -0.5rem 0 1rem whitesmoke 20%;
   border-radius: 0.2rem;
   pointer-events: initial;
-  width: 40%;
+  width: 80%;
   z-index: 100;
 }
 
@@ -273,3 +285,97 @@ mark {
 .slide-nav-select {
   min-width: 0;
 }
+
+
+/* Adding styling so that images are responsive to the sizes of the boxes
+.fifth-slide-image-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.fifth-slide-image-container.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fifth-img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+} */
+
+
+/* Changing the cover image to grayscale and making it responsive to viewport sizing */
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+#cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(75%);
+}
+
+@media (max-width: 768px) {
+  .cover {
+    height: 50vh;
+  }
+}
+
+/* Image box styling - scrolls in naturally between slides then stays fixed */
+.image-slide {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  padding: 0;
+  background-color: transparent;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.image-slide.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90vh;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.image-slide.active {
+  display: flex;
+}
+
+.image-slide img {
+  width: auto;
+  height: 100%;
+  max-width: 90%;
+  object-fit: contain;
+}
+
+/* Slide styling when in image mode - scrolls behind fixed image */
+/* All slides now use 80% width, so image-mode class not needed */
