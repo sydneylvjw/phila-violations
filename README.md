@@ -11,13 +11,3 @@ Data was sourced from the City of Philadelphia through OpenDataPhilly:
 
 Copilot was used in the development in this project to assist with code writing, debugging, and styling.
 
-Commit your code and push it to your repository on GitHub. Set up GitHub pages on the repository and submit a new pull request into the original project repository in the class organization.
-
-#### Submission Checklist
-
--    Pushed latest code to the `main` branch of your repository
--    Linted JS and CSS code
--    Turned on GitHub Pages for the repository and verified that your site works when deployed
--    Submitted a pull request to the original repository in the class organization
--    In the PR **title**, included your name at least
--    In the PR **description**, included a brief description of your topic, and your target audience

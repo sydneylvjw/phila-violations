@@ -87,7 +87,7 @@ class SlideDeck {
     const collection = await this.getSlideFeatureCollection(slide);
     const options = this.slideOptions[slide.id];
     const layer = this.updateDataLayer(collection, options);
-    
+
 
     /**
      * Create a bounds object from a GeoJSON bbox array.
@@ -107,7 +107,7 @@ class SlideDeck {
      * Create a temporary event handler that will show tooltips on the map
      * features, after the map is done "flying" to contain the data layer.
      */
-    let handleFlyEnd = () => {
+    const handleFlyEnd = () => {
       if (slide.showpopups) {
         layer.eachLayer((l) => {
           l.bindTooltip(l.feature.properties.label, { permanent: true });
@@ -119,18 +119,9 @@ class SlideDeck {
 
     this.map.addEventListener('moveend', handleFlyEnd);
 
-    // Modifying the flyOptions so that the map sits to the left of the viewport, and the slides don't overlap it
-    // Copilot says: 
-      // Build fly/fit options and bias the bounds to the left so the map's
-      // important content appears on the left side of the viewport when slides
-      // are rendered on top of the map. We compute the slide overlay width in
-      // pixels and add it as right padding (paddingBottomRight) to fitBounds.
-    const slideEl = document.querySelector('.slide');
-    const slideWidthPx = slideEl ? slideEl.offsetWidth : Math.round(window.innerWidth * 0.4);
 
     const flyOptions = {};
     if (options && options.zoom) flyOptions.maxZoom = options.zoom;
-    const paddingRight = Math.min(slideWidthPx + 12, Math.round(window.innerWidth * 0.75));
     flyOptions.paddingBottomRight = [0, 0];
 
     const hasCustomBounds = options && options.bounds;
@@ -150,28 +141,21 @@ class SlideDeck {
   async syncMapToCurrentSlide() {
     const slide = this.slides[this.currentSlideIndex];
     await this.syncMapToSlide(slide);
-  } 
-  //This is the end of function that syncs the map to the current slide. this basically ensures that when you scroll to a new slide, the map updates to match that slide. 
-  // The slide file is fetched from the data folder based on the slide's ID. 
+  }
+  // This is the end of function that syncs the map to the current slide. this basically ensures that when you scroll to a new slide, the map updates to match that slide.
+  // The slide file is fetched from the data folder based on the slide's ID.
   // The slide file is styled based on the options in the slideOptions object passed to the SlideDeck constructor located in line 76 of index.js.
 
   /**
    * Increment the currentSlideIndex and show the corresponding slide. If the
    * current slide is the final slide, then the next is the first.
    */
-
-
   goNextSlide() {
     this.currentSlideIndex++;
-
     if (this.currentSlideIndex === this.slides.length) {
       this.currentSlideIndex = 0;
-    }  //this function goNextSlide checks the index of the current slide to see if it is the last slide. 
-    // If it is not the last slide, it increments the index by 1 to show the next slide.
-
-    this.syncMapToCurrentSlide(); //If it is the last slide, the function syncs the map to the first slide by setting the currentSlideIndex to 0.
-    //this.syncMapToCurrentSlide() then updates the map to match the current slide. 
-    // this. in js is a reference to the current object instance, in this case, the SlideDeck object. We know it is rerferencing the SlideDeck object because the function is defined within the SlideDeck class in line 3 of slidedeck.js.
+    }
+    this.syncMapToCurrentSlide();
   }
 
   /**
